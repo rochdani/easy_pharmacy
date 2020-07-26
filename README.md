@@ -1,6 +1,6 @@
 # loginapp
 
-A new Flutter application.
+A new Flutter application.This application is useful for easy online usage of pharmacy
 
 ## Getting Started
 
