@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'auth.dart';
 
-
-class LoginPage extends StatefulWidget{
-  LoginPage({this.auth,this.onSignedIn});
+class LoginPage extends StatefulWidget {
+  LoginPage({this.auth, this.onSignedIn});
   final BaseAuth auth;
   final VoidCallback onSignedIn;
 
@@ -16,116 +15,121 @@ class LoginPage extends StatefulWidget{
 
 }
 
-enum FormType{
-  login,
-  register
-
-
+class logo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    AssetImage assetImage = AssetImage('images/one.jpg');
+    Image image = Image(
+      image: assetImage,
+      width: 200.0,
+      height: 200.0,
+    );
+    return Container(
+      child: image,
+    );
+  }
 }
 
-class _LoginPageState extends State<LoginPage>{
+enum FormType { login, register }
+
+class _LoginPageState extends State<LoginPage> {
   //the underscore _ is used to make a class private
   String _email;
   String _password;
-  FormType _formType=FormType.login;
+  FormType _formType = FormType.login;
 
+  final formKey = new GlobalKey<FormState>();
 
-
-  final formKey=new GlobalKey<FormState>();
-
-  bool validateAndSave(){
-
-    final form=formKey.currentState;
-    if(form.validate()){
+  bool validateAndSave() {
+    final form = formKey.currentState;
+    if (form.validate()) {
       form.save();
       return true;
     }
     return false;
-
   }
 
   void validateAndSubmit() async {
-    if(validateAndSave()){
+    if (validateAndSave()) {
       try {
-        if(_formType == FormType.login) {
-          String userId=await widget.auth.signInWithEmailAndPassword(_email, _password);
+        if (_formType == FormType.login) {
+          String userId =
+              await widget.auth.signInWithEmailAndPassword(_email, _password);
 //          FirebaseUser user = (await FirebaseAuth.instance
 //              .signInWithEmailAndPassword(email: _email, password: _password))
 //              .user;
           print('sign in user:$userId');
-        }else{
-          String userId=await widget.auth.createUserWithEmailAndPassword(_email, _password);
-       //   FirebaseUser user=(await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password)).user;
+        } else {
+          String userId = await widget.auth
+              .createUserWithEmailAndPassword(_email, _password);
+          //   FirebaseUser user=(await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password)).user;
           print('Register: $userId');
         }
         widget.onSignedIn();
-      }
-      catch(e){
+      } catch (e) {
         print('Error:$e');
       }
     }
   }
 
-  void moveToRegister(){
+  void moveToRegister() {
     formKey.currentState.reset();
     setState(() {
-      _formType=FormType.register;
+      _formType = FormType.register;
     });
-
   }
 
-  void moveToLogin(){
+  void moveToLogin() {
     formKey.currentState.reset();
     setState(() {
-      _formType=FormType.login;
+      _formType = FormType.login;
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return new Scaffold(
-      appBar: new AppBar(
-        leading: IconButton(icon: Icon(Icons.menu), onPressed: (){}),
-        title: new Text('flutter login'),
-      ),
-      body: new Container(
-
-        padding: EdgeInsets.all(16.0),
-        child: new Form(
-          key: formKey,
-          child:new Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,//stretch login button
-            children:  buildInputs()+buildSubmitButtons(),
+        appBar: new AppBar(
+          leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
+          title: new Text('flutter login'),
         ),
-      )
-    )
-    );
+        body: SingleChildScrollView(
+          child: new Container(
+              padding: EdgeInsets.all(16.0),
+              child: new Form(
+                key: formKey,
+                child: new Column(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.stretch, //stretch login button
+                  children: inputlogo() + buildInputs() + buildSubmitButtons(),
+                ),
+              )),
+        ));
   }
 
-  List<Widget> buildInputs(){
+  List<Widget> inputlogo() {
+    return [logo()];
+  }
 
-    return[
-
+  List<Widget> buildInputs() {
+    return [
       new TextFormField(
-        decoration: new InputDecoration(labelText: 'Email',
-        focusColor: Colors.black
-        ),
-        validator: (value) => value.isEmpty ? 'email can not be empty ':null,
-        onSaved: (value)=> _email=value,
-
+        decoration:
+            new InputDecoration(labelText: 'Email', focusColor: Colors.black),
+        validator: (value) => value.isEmpty ? 'email can not be empty ' : null,
+        onSaved: (value) => _email = value,
       ),
       new TextFormField(
         decoration: new InputDecoration(labelText: 'Password'),
-        validator: (value) => value.isEmpty ? 'password can not be empty ':null,
-        onSaved: (value)=> _password=value,
-        obscureText: true,//hide password
+        validator: (value) =>
+            value.isEmpty ? 'password can not be empty ' : null,
+        onSaved: (value) => _password = value,
+        obscureText: true, //hide password
       ),
-
     ];
   }
-
 
   List<Widget> buildSubmitButtons() {
     if (_formType == FormType.login) {
@@ -134,27 +138,24 @@ class _LoginPageState extends State<LoginPage>{
           child: new Text('Login', style: new TextStyle(fontSize: 20.0)),
           onPressed: validateAndSubmit,
           color: Colors.green,
-
         ),
-
-        new FlatButton(onPressed: moveToRegister,
-            child: new Text(
-                'Create an account', style: new TextStyle(fontSize: 20.0))),
-
+        new FlatButton(
+            onPressed: moveToRegister,
+            child: new Text('Create an account',
+                style: new TextStyle(fontSize: 20.0))),
       ];
-    }else{
+    } else {
       return [
         new RaisedButton(
-          child: new Text('Create an Account', style: new TextStyle(fontSize: 20.0)),
+          child: new Text('Create an Account',
+              style: new TextStyle(fontSize: 20.0)),
           onPressed: validateAndSubmit,
         ),
-        new FlatButton(onPressed: moveToLogin,
-            child: new Text(
-                'Have an account?Login', style: new TextStyle(fontSize: 20.0))),
-
+        new FlatButton(
+            onPressed: moveToLogin,
+            child: new Text('Have an account?Login',
+                style: new TextStyle(fontSize: 20.0))),
       ];
-
     }
   }
-
 }

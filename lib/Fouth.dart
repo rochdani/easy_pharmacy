@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loginapp/Update.dart';
 
 class Fouth extends StatefulWidget{
 
@@ -40,7 +41,7 @@ class FouthState extends State<Fouth> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 FlatButton(
-                  onPressed: () => updateData(doc),
+                  onPressed: () => Navigator.push(context,MaterialPageRoute(builder: (context) => Update())),
                   child: Text('Update', style: TextStyle(color: Colors.white)),
                   color: Colors.green,
                 ),
@@ -91,8 +92,10 @@ class FouthState extends State<Fouth> {
     //print(snapshot.data['medicineCategory']);
   }
 
-  void updateData(DocumentSnapshot doc) async {
-    await db.collection('CRUD').document(doc.documentID).updateData({'todo': 'please 🤫'});
+  void updateData(DocumentSnapshot doc,newValues) async {
+    await db.collection('CRUD').document(doc.documentID).updateData(newValues).catchError((e){
+      print(e);
+    });
   }
 
   void deleteData(DocumentSnapshot doc) async {
