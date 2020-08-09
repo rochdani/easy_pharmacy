@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
-class Second extends StatefulWidget{
-
+class Second extends StatefulWidget {
   @override
   SecondState createState() {
     return SecondState();
@@ -38,7 +36,8 @@ class SecondState extends State<Second> {
               children: <Widget>[
                 FlatButton(
                   onPressed: () => updateData(doc),
-                  child: Text('Update todo', style: TextStyle(color: Colors.white)),
+                  child: Text('Update todo',
+                      style: TextStyle(color: Colors.white)),
                   color: Colors.green,
                 ),
                 SizedBox(width: 8),
@@ -103,7 +102,10 @@ class SecondState extends State<Second> {
             stream: db.collection('CRUD').snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Column(children: snapshot.data.documents.map((doc) => buildItem(doc)).toList());
+                return Column(
+                    children: snapshot.data.documents
+                        .map((doc) => buildItem(doc))
+                        .toList());
               } else {
                 return SizedBox();
               }
@@ -117,7 +119,9 @@ class SecondState extends State<Second> {
   void createData() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      DocumentReference ref = await db.collection('CRUD').add({'name': '$name 😎', 'todo': randomTodo()});
+      DocumentReference ref = await db
+          .collection('CRUD')
+          .add({'name': '$name 😎', 'todo': randomTodo()});
       setState(() => id = ref.documentID);
       print(ref.documentID);
     }
@@ -129,7 +133,10 @@ class SecondState extends State<Second> {
   }
 
   void updateData(DocumentSnapshot doc) async {
-    await db.collection('CRUD').document(doc.documentID).updateData({'todo': 'please 🤫'});
+    await db
+        .collection('CRUD')
+        .document(doc.documentID)
+        .updateData({'todo': 'please 🤫'});
   }
 
   void deleteData(DocumentSnapshot doc) async {
