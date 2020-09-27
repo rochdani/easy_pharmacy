@@ -3,9 +3,12 @@ import 'package:loginapp/admin_screens/admin_home.dart';
 import 'package:loginapp/cus_dash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loginapp/cus_screens/MainHome.dart';
+//import 'package:loginapp/cus_screens/cus_dashboard.dart';
 import 'package:loginapp/models/User.dart';
 import 'package:loginapp/login_page.dart';
 import 'package:loginapp/home_page.dart';
+import 'package:loginapp/shared/splashScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:loginapp/shared/loading.dart';
 
@@ -24,7 +27,7 @@ class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-
+    // SplashScreens();
     //return ether home or authenticate
     if (user == null) {
       return LoginPage();
@@ -33,19 +36,19 @@ class _WrapperState extends State<Wrapper> {
       setState(() {
         isLoading = true;
       });
-      if (isLoading) {
-        readData();
-        Loading();
-      }
+//      if (isLoading) {
+//        readData();
+//        Loading();
+//      }
 
-      //  readData();
-      //  Loading();
+      readData();
+      Loading();
       // readData(userType);
       if (userTypes == 'Admin') {
         // print("object");
         return AdminHome();
       } else {
-        return CusDash();
+        return BottomNavBar();
       }
     }
   }

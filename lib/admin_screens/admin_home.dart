@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loginapp/Third.dart';
+import 'package:loginapp/admin_screens/addpage.dart';
 import 'package:loginapp/admin_screens/admin_view.dart';
 import 'package:loginapp/admin_screens/manage_profile.dart';
+import 'package:loginapp/admin_screens/view.dart';
 import 'package:loginapp/models/medicine.dart';
 
 class AdminHome extends StatefulWidget {
@@ -11,7 +13,13 @@ class AdminHome extends StatefulWidget {
 
 class _AdminHomeState extends State<AdminHome> {
   int currentPage = 0;
-  final List<Widget> screens = [AdminView(), Third(), ManageProfile()];
+  final List<Widget> screens = [
+    AdminView(),
+    Third(),
+    ManageProfile(),
+    MyAddPage(),
+    View()
+  ];
 
   Widget currentScreen = AdminView();
   //backet allows to switch between pages
@@ -49,12 +57,12 @@ class _AdminHomeState extends State<AdminHome> {
                     )
                   ],
                 ),
-                minWidth: 40,
+                minWidth: 30,
               ),
               MaterialButton(
                 onPressed: () {
                   setState(() {
-                    currentScreen = ManageProfile();
+                    currentScreen = View();
                     currentPage = 1;
                   });
                 },
@@ -64,18 +72,18 @@ class _AdminHomeState extends State<AdminHome> {
                     Icon(Icons.local_shipping,
                         color: currentPage == 1 ? Colors.blue : Colors.grey),
                     Text(
-                      'Add Items',
+                      'Manage Profile',
                       style: TextStyle(
                           color: currentPage == 1 ? Colors.blue : Colors.grey),
                     )
                   ],
                 ),
-                minWidth: 40,
+                minWidth: 30,
               ),
               MaterialButton(
                 onPressed: () {
                   setState(() {
-                    currentScreen = Third();
+                    currentScreen = MyAddPage();
                     currentPage = 2;
                   });
                 },
@@ -85,14 +93,35 @@ class _AdminHomeState extends State<AdminHome> {
                     Icon(Icons.person,
                         color: currentPage == 2 ? Colors.blue : Colors.grey),
                     Text(
-                      'Profile',
+                      'Add Items',
                       style: TextStyle(
                           color: currentPage == 2 ? Colors.blue : Colors.grey),
                     )
                   ],
                 ),
-                minWidth: 40,
-              )
+                minWidth: 30,
+              ),
+//              MaterialButton(
+//                onPressed: () {
+//                  setState(() {
+//                    currentScreen = MyAddPage();
+//                    currentPage = 3;
+//                  });
+//                },
+//                child: Column(
+//                  mainAxisAlignment: MainAxisAlignment.center,
+//                  children: <Widget>[
+//                    Icon(Icons.person,
+//                        color: currentPage == 3 ? Colors.blue : Colors.grey),
+//                    Text(
+//                      'Add Image',
+//                      style: TextStyle(
+//                          color: currentPage == 3 ? Colors.blue : Colors.grey),
+//                    )
+//                  ],
+//                ),
+//                minWidth: 30,
+//              )
             ],
           ),
         ),

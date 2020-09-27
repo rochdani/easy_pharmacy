@@ -1,11 +1,23 @@
 import 'package:loginapp/cus_screens/edit_medicine.dart';
 import 'package:flutter/material.dart';
 import 'package:loginapp/providers/product_provider.dart';
+import 'package:loginapp/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:loginapp/models/medicine.dart';
 
 class AdminView extends StatelessWidget {
   final bool isThreeLine = true;
+  final AuthService _auth = AuthService();
+
+  void _signedOut() async {
+    try {
+      await _auth.signOut();
+      //onSignedOut();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final medicine = Provider.of<List<Medicine>>(context);
@@ -23,7 +35,13 @@ class AdminView extends StatelessWidget {
                 Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => EditMedicine()));
               },
-            )
+            ),
+            IconButton(
+              icon: Icon(Icons.verified_user),
+              onPressed: () {
+                _signedOut();
+              },
+            ),
           ],
         ),
         //body

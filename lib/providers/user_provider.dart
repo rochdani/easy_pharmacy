@@ -5,6 +5,7 @@ import 'package:uuid/uuid.dart';
 
 class UserProvider with ChangeNotifier {
   final firestoreService = FirestoreService();
+  String _uid;
   String _userType;
   String _email;
   String _name;
@@ -12,6 +13,7 @@ class UserProvider with ChangeNotifier {
   var uuid = Uuid();
 
   //getters
+  String get uid => _uid;
   String get email => _email;
   String get name => _name;
   String get userType => _userType;
@@ -55,6 +57,7 @@ class UserProvider with ChangeNotifier {
 
   loadValues(Profile profile) {
     try {
+      _uid = profile.uid;
       _name = profile.name;
       _email = profile.email;
       _userType = profile.userType;
@@ -63,7 +66,7 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  removeProfile(String id) {
-    firestoreService.removeProduct(id);
+  removeProfile(String uid) {
+    firestoreService.removeProduct(uid);
   }
 }

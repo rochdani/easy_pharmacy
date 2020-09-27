@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:loginapp/models/User.dart';
 import 'package:loginapp/models/medicine.dart';
 import 'package:loginapp/models/profile.dart';
 
@@ -25,6 +26,15 @@ class FirestoreService {
         .documents
         .map((document) => Profile.fromFirestore(document.data))
         .toList());
+  }
+
+  Future getUser(String uid) async {
+    try {
+      var userData = await _db.document(uid).get();
+      return Profile.fromFirestore(userData.data);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Future<void> removeProduct(String id) {

@@ -9,11 +9,13 @@ class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
-  Future updateUserData(String name, String email, String userType) async {
+  Future updateUserData(
+      String name, String email, String userType, String uid) async {
     return await profilecollection.document(uid).setData({
       'name': name,
       'email': email,
       'userType': userType,
+      'userId': uid,
     });
   }
 

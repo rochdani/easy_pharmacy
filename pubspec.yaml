@@ -23,21 +23,34 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  shimmer: ^1.1.1
   firebase_auth: 0.16.1
   cloud_firestore: 0.13.6
+  #firebase_auth: ^0.18.0+1
+  #cloud_firestore: ^0.14.0+2
   provider: 4.3.1
-  flutter_spinkit: "^4.1.2"
+  flutter_spinkit: ^4.1.2
   uuid: ^2.2.0
+  firebase_storage: ^3.1.6
+  date_format: ^1.0.9
+  intl: ^0.16.1
+  firebase_core: ^0.4.5
+
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
+  curved_navigation_bar: ^0.3.3
+  url_launcher: ^5.5.0
+  image_picker: ^0.6.7+7
   flutter_staggered_grid_view: 0.3.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_typeahead: ^1.8.8
+  splashscreen: ^1.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -52,9 +65,41 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - images/1.jpg
     - images/one.jpg
     - images/16.jpeg
     - images/15.jpeg
+    - images/ste_re.jpg
+    - images/health.png
+    - images/med.png
+    - images/one.jpg
+    - images/call.jpg
+    - images/StayPhysicallyActive1.jpg
+    - images/StayPhysicallyActive2.jpg
+    - images/StayPhysicallyActive3.jpg
+    - images/StayPhysicallyActive4.jpg
+    - images/StayPhysicallyActive5.jpg
+    - images/upload.jpg
+    - images/cameraa.png
+    - images/galleryy.png
+    - images/diet2.jpg
+    - images/HealthyDiet1.jpg
+    - images/HealthyDiet2.png
+    - images/healthyParenting.jpg
+    - images/HealthyParenting1.jpg
+    - images/HealthyParenting2.jpg
+    - images/HealthyParenting3.jpg
+    - images/med.png
+    - images/mentalHealth.jpeg
+    - images/MentalHealth1.jpg
+    - images/MentalHealth2.jpg
+    - images/presc.jpeg
+    - images/exercise.jpg
+    - images/diet2.jpg
+    - images/health.png
+
+
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -68,17 +113,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+ # fonts:
+  #  - family: Pacifico
+   #   fonts:
+    #    - asset: assets/fonts/Pacifico-Regular.ttf
+     #   - asset: assets/fonts/Piedra-Regular.ttf
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

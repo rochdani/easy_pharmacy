@@ -2,11 +2,21 @@ import 'package:loginapp/cus_screens/edit_medicine.dart';
 import 'package:flutter/material.dart';
 import 'package:loginapp/models/profile.dart';
 import 'package:loginapp/providers/user_provider.dart';
+import 'package:loginapp/services/auth.dart';
 import 'package:provider/provider.dart';
-import 'package:loginapp/models/User.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ManageProfile extends StatelessWidget {
+  final AuthService _auth = AuthService();
+
+  void _signedOut() async {
+    try {
+      await _auth.signOut();
+      //onSignedOut();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<List<Profile>>(context);
@@ -20,11 +30,10 @@ class ManageProfile extends StatelessWidget {
                 Icons.supervised_user_circle,
                 size: 30.0,
               ),
-//              onPressed: () {
-//                Navigator.of(context).push(
-//                    MaterialPageRoute(builder: (context) => EditMedicine()));
-//              },
-            )
+              onPressed: () {
+                _signedOut();
+              },
+            ),
           ],
         ),
         //body
@@ -44,7 +53,8 @@ class ManageProfile extends StatelessWidget {
                       isThreeLine: true,
                       trailing: Icon(Icons.delete),
                       onTap: () {
-                       // Navigator.of(context).pop();
+                        // user.removeProfile()
+                        // Navigator.of(context).pop();
                       },
                     ),
                   );
